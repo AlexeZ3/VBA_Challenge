@@ -15,7 +15,7 @@ Sub VBA_Challenge()
         last_row = ws.Cells(Rows.Count, 1).End(xlUp).Row
         total_stock_volume = 0
         
-        'Assigns headers etc to columns and rows
+        
         ws.Cells(1, 9).Value = "Ticker"
         ws.Cells(1, 10).Value = "Yearly Change"
         ws.Cells(1, 11).Value = "Percent Change"
@@ -28,7 +28,6 @@ Sub VBA_Challenge()
         ws.Cells(4, 15).Value = "Greatest Total Volume"
         
         
-        'Loop through all rows to find unique tickers, then place each unique ticker in 9th column
         For i = 2 To last_row
             tickers = ws.Cells(i, 1).Value
             tickers2 = ws.Cells(i - 1, 1).Value
@@ -38,7 +37,6 @@ Sub VBA_Challenge()
             End If
          Next i
     
-        'Loop through all rows and add to volume if the ticker hasn't changed. Once ticker has changed, reset volume and continue.
         For i = 2 To last_row + 1
             tickers = ws.Cells(i, 1).Value
             tickers2 = ws.Cells(i - 1, 1).Value
@@ -53,7 +51,6 @@ Sub VBA_Challenge()
             End If
         Next i
             
-        'Loop through all rows. If previous ticker is different, assign year_opening. If next ticker is different, assign year_closing.
         select_index = 2
         For i = 2 To last_row
             If ws.Cells(i, 1).Value <> ws.Cells(i + 1, 1).Value Then
@@ -72,7 +69,7 @@ Sub VBA_Challenge()
             End If
         Next i
         
-        'Finds min and max values, then assigns each value to proper cell
+        
         max_per = WorksheetFunction.Max(ActiveSheet.Columns("k"))
         min_per = WorksheetFunction.Min(ActiveSheet.Columns("k"))
         max_vol = WorksheetFunction.Max(ActiveSheet.Columns("l"))
@@ -82,7 +79,6 @@ Sub VBA_Challenge()
         ws.Range("Q4").Value = max_vol
         
         
-        'Loops through columns 11 & 12. If either column contains min or max values, apply corresponding ticker to corresponding cell
         For i = 2 To last_row
             If max_per = ws.Cells(i, 11).Value Then
                 ws.Range("P2").Value = ws.Cells(i, 9).Value
@@ -93,7 +89,7 @@ Sub VBA_Challenge()
             End If
         Next i
         
-        'Loops through column 10 then applies either green or red interior
+        
         For i = 2 To last_row
             If ws.Cells(i, 10).Value > 0 Then
                 ws.Cells(i, 10).Interior.ColorIndex = 4
@@ -101,7 +97,7 @@ Sub VBA_Challenge()
                 ws.Cells(i, 10).Interior.ColorIndex = 3
             End If
         Next i
-        'Loops through column 11 then applies either green or red interior
+        
         For i = 2 To last_row
             If ws.Cells(i, 11).Value > 0 Then
                 ws.Cells(i, 11).Interior.ColorIndex = 4
